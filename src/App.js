@@ -1,24 +1,61 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Counter from "./components/Counter";
+import Timer from "./components/Timer";
+import DocumentTitle from "./components/DocumentTitle";
+import React from "react";
 
+const theme = {
+  dark: {
+    background: "#000",
+    color: "#fff",
+  },
+  light: {
+    background: "lightblue",
+    color: "red",
+  },
+};
+
+export const ThemeProvider = React.createContext();
+
+// hook
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider.Provider value={theme}>
+      <div className="App">
+        <Router>
+          <p>
+            <Link to="/"> HOME </Link>
+          </p>
+
+          <nav>
+            <ul>
+              <li>
+                <Link to="/counter">Counter</Link>
+              </li>
+              <li>
+                <Link to="/timer">Timer</Link>
+              </li>
+              <li>
+                <Link to="/doctitle">Document Title</Link>
+              </li>
+            </ul>
+          </nav>
+
+          <Switch>
+            <Route path="/counter">
+              <Counter />
+            </Route>
+            <Route path="/timer">
+              <Timer />
+            </Route>
+            <Route path="/doctitle">
+              <DocumentTitle />
+            </Route>
+          </Switch>
+        </Router>
+      </div>
+    </ThemeProvider.Provider>
   );
 }
 
